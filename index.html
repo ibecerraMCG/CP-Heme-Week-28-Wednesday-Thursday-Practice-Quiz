@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 28 Wednesday & Thursday Practice Quiz</title>
+    <style>
+        /* --- CSS Variables & Themes --- */
+        :root {
+            /* Base Transition */
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* 1. Modern Dark (Default) */
+        [data-theme="dark"] {
+            --bg-body: #1e293b;
+            --bg-card: #334155;
+            --bg-header: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            --border-color: #475569;
+            --highlight-bg: #475569;
+            --button-bg: #38bdf8;
+            --button-text: #0f172a;
+            --button-hover: #0ea5e9;
+            --feedback-success-bg: #064e3b;
+            --feedback-success-border: #059669;
+            --feedback-success-text: #a7f3d0;
+            --feedback-error-bg: #7f1d1d;
+            --feedback-error-border: #dc2626;
+            --feedback-error-text: #fecaca;
+        }
+
+        /* 2. Modern Light */
+        [data-theme="light"] {
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-accent: #2563eb;
+            --border-color: #e5e7eb;
+            --highlight-bg: #f3f4f6;
+            --button-bg: #2563eb;
+            --button-text: #ffffff;
+            --button-hover: #1d4ed8;
+            --feedback-success-bg: #ecfdf5;
+            --feedback-success-border: #34d399;
+            --feedback-success-text: #065f46;
+            --feedback-error-bg: #fef2f2;
+            --feedback-error-border: #f87171;
+            --feedback-error-text: #991b1b;
+        }
+
+        /* 3. Midnight (Pure Black) */
+        [data-theme="midnight"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --text-accent: #90caf9;
+            --border-color: #333333;
+            --highlight-bg: #1a1a1a;
+            --button-bg: #90caf9;
+            --button-text: #000000;
+            --button-hover: #42a5f5;
+            --feedback-success-bg: #051b11;
+            --feedback-success-border: #0f5132;
+            --feedback-success-text: #75b798;
+            --feedback-error-bg: #2c0b0e;
+            --feedback-error-border: #842029;
+            --feedback-error-text: #ea868f;
+        }
+
+        /* 4. Legacy Dark (Original) */
+        [data-theme="legacy-dark"] {
+            --bg-body: #2d343e;
+            --bg-card: #3c424f;
+            --bg-header: #3c424f;
+            --text-main: #e8e6e3;
+            --text-muted: #b0c4de;
+            --text-accent: #8ab4f8;
+            --border-color: #555;
+            --highlight-bg: #454c5a;
+            --button-bg: #8ab4f8;
+            --button-text: #202124;
+            --button-hover: #a3c5f9;
+            --feedback-success-bg: #344e41;
+            --feedback-success-border: #52b788;
+            --feedback-success-text: #c7f9cc;
+            --feedback-error-bg: #5e2129;
+            --feedback-error-border: #a4133c;
+            --feedback-error-text: #f8d7da;
+        }
+
+        /* 5. Sepia (Reading Mode) */
+        [data-theme="sepia"] {
+            --bg-body: #f4ecd8;
+            --bg-card: #fdf6e3;
+            --bg-header: #e4d5b7;
+            --text-main: #433422;
+            --text-muted: #7c6f5a;
+            --text-accent: #a05a2c;
+            --border-color: #d3c4a5;
+            --highlight-bg: #ebe1c9;
+            --button-bg: #a05a2c;
+            --button-text: #fdf6e3;
+            --button-hover: #864822;
+            --feedback-success-bg: #e6f4ea;
+            --feedback-success-border: #8ab893;
+            --feedback-success-text: #2e4c35;
+            --feedback-error-bg: #f9e3e3;
+            --feedback-error-border: #d48f8f;
+            --feedback-error-text: #5c2b2b;
+        }
+
+        /* 6. High Contrast */
+        [data-theme="contrast"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #ffffff;
+            --text-muted: #dddddd;
+            --text-accent: #ffff00;
+            --border-color: #ffffff;
+            --highlight-bg: #333333;
+            --button-bg: #ffff00;
+            --button-text: #000000;
+            --button-hover: #e6e600;
+            --feedback-success-bg: #000000;
+            --feedback-success-border: #00ff00;
+            --feedback-success-text: #00ff00;
+            --feedback-error-bg: #000000;
+            --feedback-error-border: #ff0000;
+            --feedback-error-text: #ff0000;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Default to Sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Class to remove sticky behavior */
+        header.unpinned {
+            position: relative;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-accent);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .pin-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .pin-btn.pin-active {
+            color: var(--text-accent);
+            border-color: var(--text-accent);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        select#theme-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem 4rem 1rem;
+        }
+
+        .section-header {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-accent);
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Question Card --- */
+        .question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .lo-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Options --- */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--text-muted);
+        }
+
+        .option-label input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            accent-color: var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        /* --- Buttons --- */
+        .btn-check {
+            margin-top: 1.5rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        /* --- Feedback Area --- */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            border: 1px solid transparent;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-success-bg);
+            border-color: var(--feedback-success-border);
+            color: var(--feedback-success-text);
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-error-bg);
+            border-color: var(--feedback-error-border);
+            color: var(--feedback-error-text);
+        }
+
+        .feedback-header {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .source {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            border-top: 1px dashed currentColor;
+            padding-top: 0.5rem;
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            header { padding: 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .controls-wrapper { width: 100%; justify-content: space-between; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Week 28 Wednesday & Thursday Practice Quiz</h1>
+        <div class="controls-wrapper">
+            <!-- Pin Button -->
+            <button class="pin-btn pin-active" id="pin-btn" onclick="toggleHeader()" title="Pin/Unpin Header">
+                📍
+            </button>
+            
+            <div class="theme-control">
+                <label for="theme-select">Theme:</label>
+                <select id="theme-select" onchange="changeTheme(this.value)">
+                    <option value="dark">Modern Dark</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="light">Modern Light</option>
+                    <option value="legacy-dark">Legacy Dark</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="contrast">High Contrast</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-root">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // --- Data ---
+        const quizData = [
+            // --- Section 1: Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism ---
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO1: Be able to discuss prevalence of HTN",
+                fullLO: "LO1: Be able to discuss prevalence of HTN",
+                question: "A 65-year-old male presents for a routine check-up. He asks about his risk of having high blood pressure given his age. According to epidemiological data from 2017-2020, what is the approximate prevalence of hypertension in US adults over the age of 60?",
+                options: {
+                    A: "10%",
+                    B: "25%",
+                    C: "33%",
+                    D: "50%",
+                    E: "70%"
+                },
+                correctAnswer: "E",
+                rationale: "The prevalence of hypertension increases with age. For the age group 60-74, the prevalence is 70.7% for men and 71.4% for women. Generally, 2/3 of Americans older than 60 have hypertension.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slides 7 & 10: \"60-74: 70.7% [Men] 71.4% [Women]\" and \"2/3 of Americans older than 60 have HTN\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO1: Be able to discuss prevalence of HTN",
+                fullLO: "LO1: Be able to discuss prevalence of HTN",
+                question: "A 55-year-old female has a blood pressure of 118/78 mmHg. She has no history of hypertension. Based on epidemiological data, what is her estimated lifetime risk of developing hypertension?",
+                options: {
+                    A: "10%",
+                    B: "25%",
+                    C: "50%",
+                    D: "75%",
+                    E: "90%"
+                },
+                correctAnswer: "E",
+                rationale: "Patients who are normotensive at age 55 have a 90% lifetime risk of developing hypertension.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 10: \"Patients who are normotensive at age 55 have a 90% lifetime risk of developing hypertension\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO2: Be able to discuss definition of HTN",
+                fullLO: "LO2: Be able to discuss definition of HTN",
+                question: "A 50-year-old male presents to the clinic. His blood pressure is measured at 135/85 mmHg. This measurement is confirmed on a subsequent visit. According to the 2017 ACC/AHA guidelines, how is this patient's blood pressure categorized?",
+                options: {
+                    A: "Elevated",
+                    B: "High Normal",
+                    C: "Normal",
+                    D: "Stage 1 Hypertension",
+                    E: "Stage 2 Hypertension"
+                },
+                correctAnswer: "D",
+                rationale: "Stage 1 Hypertension is defined as Systolic 130-139 mmHg OR Diastolic 80-89 mmHg.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 5: \"Stage 1: 130-139 AND/OR 80-89\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO2: Be able to discuss definition of HTN",
+                fullLO: "LO2: Be able to discuss definition of HTN",
+                question: "A patient presents with a blood pressure of 142/92 mmHg. According to the ACC/AHA 2017 guidelines, this reading falls into which category?",
+                options: {
+                    A: "Elevated",
+                    B: "Hypertensive Crisis",
+                    C: "Pre-hypertension",
+                    D: "Stage 1 Hypertension",
+                    E: "Stage 2 Hypertension"
+                },
+                correctAnswer: "E",
+                rationale: "Stage 2 Hypertension is defined as Systolic ≥140 mmHg OR Diastolic ≥90 mmHg.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 5: \"Stage 2: ≥140 AND/OR ≥90\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO3: Be able to discuss secondary causes of HTN",
+                fullLO: "LO3: Be able to discuss secondary causes of HTN",
+                question: "A 45-year-old male with resistant hypertension complains of daytime sleepiness and his partner reports loud snoring. His BMI is 34 kg/m ². Which of the following is the most likely secondary cause of his hypertension?",
+                options: {
+                    A: "Coarctation of the aorta",
+                    B: "Cushing syndrome",
+                    C: "Obstructive Sleep Apnea (OSA)",
+                    D: "Pheochromocytoma",
+                    E: "Primary Hyperaldosteronism"
+                },
+                correctAnswer: "C",
+                rationale: "OSA has a prevalence of 25-50% in patients with secondary hypertension features. Key findings include snoring, choking/gasping during sleep, daytime sleepiness, and obesity.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 54: \"OSA... 25%–50%... Snoring, choking, gasping during sleep; daytime sleepiness; resistant hypertension\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO3: Be able to discuss secondary causes of HTN",
+                fullLO: "LO3: Be able to discuss secondary causes of HTN",
+                question: "A 30-year-old female presents with hypertension and hypokalemia. She is not on diuretics. Further workup reveals a suppressed plasma renin activity and elevated aldosterone levels. What is the most likely diagnosis?",
+                options: {
+                    A: "Essential Hypertension",
+                    B: "Fibromuscular Dysplasia",
+                    C: "Pheochromocytoma",
+                    D: "Primary Hyperaldosteronism",
+                    E: "Renal Artery Stenosis"
+                },
+                correctAnswer: "D",
+                rationale: "Primary hyperaldosteronism is characterized by hypertension, hypokalemia (often), suppressed plasma renin, and elevated aldosterone. It is a common cause of secondary hypertension.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 28: \"Primary Hyperaldosteronism... HTN due to sodium & water retention... Hypokalemia & alkalosis... Suppressed plasma renin & elevated aldo\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO4: Be able to discuss clinical presentation of HTN",
+                fullLO: "LO4: Be able to discuss clinical presentation of HTN",
+                question: "A 50-year-old male is found to have a blood pressure of 150/95 mmHg during a routine insurance screening. He reports feeling entirely well with no specific complaints. What is the most common clinical presentation of chronic hypertension?",
+                options: {
+                    A: "Asymptomatic",
+                    B: "Blurred vision",
+                    C: "Chest pain",
+                    D: "Dyspnea on exertion",
+                    E: "Morning headaches"
+                },
+                correctAnswer: "A",
+                rationale: "The majority of patients with chronic hypertension have no symptoms. It is often called a \"silent disease.\"",
+                source: "Antihypertensives_PDF.pdf, Slide 4 & Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 19: \"Most times asymptomatic (a ‘silent’ disease)\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO4: Be able to discuss clinical presentation of HTN",
+                fullLO: "LO4: Be able to discuss clinical presentation of HTN",
+                question: "A patient with poorly controlled hypertension complains of headaches. Based on the circadian variation of blood pressure, when is this symptom most likely to occur?",
+                options: {
+                    A: "Immediately after meals",
+                    B: "In the afternoon",
+                    C: "In the evening",
+                    D: "In the morning",
+                    E: "During sleep"
+                },
+                correctAnswer: "D",
+                rationale: "Headaches associated with hypertension often coincide with the morning surge in blood pressure.",
+                source: "Antihypertensives_PDF.pdf, Slide 4: \"Headache – Coincides with morning surge in BP\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO5: Be able to discuss diagnosis of HTN",
+                fullLO: "LO5: Be able to discuss diagnosis of HTN",
+                question: "A 55-year-old male is diagnosed with new-onset hypertension. In addition to a lipid profile and fasting blood glucose, which of the following is a recommended routine diagnostic test for the initial evaluation?",
+                options: {
+                    A: "24-hour urinary cortisol",
+                    B: "Echocardiogram",
+                    C: "Electrocardiogram (ECG)",
+                    D: "Plasma metanephrines",
+                    E: "Renal ultrasound"
+                },
+                correctAnswer: "C",
+                rationale: "The routine laboratory testing for a new diagnosis of hypertension includes an ECG. Echocardiograms and other specific tests are reserved for when secondary causes or specific organ damage are suspected.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 18: \"Table 6. Routine Laboratory Testing for New Diagnosis of Hypertension... ECG\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO5: Be able to discuss diagnosis of HTN",
+                fullLO: "LO5: Be able to discuss diagnosis of HTN",
+                question: "To accurately diagnose hypertension in an office setting, specific measurement techniques must be followed. Which of the following is a requirement for accurate blood pressure measurement?",
+                options: {
+                    A: "Measurements should be taken immediately upon patient arrival.",
+                    B: "The arm should be unsupported and hanging at the side.",
+                    C: "The back should be unsupported.",
+                    D: "The cuff should be placed over the patient's clothing.",
+                    E: "The patient should empty their bladder before measurement."
+                },
+                correctAnswer: "E",
+                rationale: "The checklist for accurate measurement includes ensuring the patient has emptied their bladder. The patient should also relax for 5 minutes, have back supported, feet flat on the floor, and the cuff should be on a bare arm.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 17: \"Ensure the patient has emptied their bladder... Have the patient relax... sitting in a chair... back supported... Use the correct cuff size on a bare arm.\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO6: Be able to discuss treatment of HTN",
+                fullLO: "LO6: Be able to discuss treatment of HTN",
+                question: "A 45-year-old obese male with hypertension is advised to modify his lifestyle. Which of the following lifestyle modifications is expected to yield the greatest average reduction in systolic blood pressure?",
+                options: {
+                    A: "Adopting the DASH eating plan",
+                    B: "Moderate alcohol consumption",
+                    C: "Physical activity",
+                    D: "Sodium restriction",
+                    E: "Weight reduction (10 kg)"
+                },
+                correctAnswer: "E",
+                rationale: "Weight reduction yields an average SBP reduction of 10-20 mmHg for each 10 kg lost. The DASH plan yields 8-15 mmHg, and others yield less.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 34: \"Weight reduction 10-20 mmHg for each 10 kg\""
+            },
+            {
+                section: "Clinical Diagnosis of Hypertension & Primary Hyperaldosteronism",
+                maskedLO: "LO6: Be able to discuss treatment of HTN",
+                fullLO: "LO6: Be able to discuss treatment of HTN",
+                question: "A 55-year-old African American male presents with Stage 1 hypertension. He has no other compelling indications or comorbidities. According to the treatment algorithm, which of the following is an appropriate initial drug choice?",
+                options: {
+                    A: "ACE Inhibitor",
+                    B: "Alpha-blocker",
+                    C: "Beta-blocker",
+                    D: "Calcium Channel Blocker (CCB)",
+                    E: "Direct Renin Inhibitor"
+                },
+                correctAnswer: "D",
+                rationale: "For Stage 1 Hypertension in African Americans without compelling indications, a CCB or Thiazide diuretic is recommended. ACE inhibitors are noted to be less effective in this population and carry higher angioedema risk.",
+                source: "Hypertension_and_Hyperaldosteronism_PDF.pdf, Slide 37: \"For AA [African American] CCB or thiazide\""
+            },
+
+            // --- Section 2: DVT & Pulmonary Embolism ---
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO1: Identify risk factors for deep vein thrombosis and pulmonary embolism",
+                fullLO: "LO1: Identify risk factors for deep vein thrombosis and pulmonary embolism",
+                question: "A 35-year-old female presents with a swollen left leg. She recently started taking oral contraceptives. According to Virchow's triad, oral contraceptives predispose patients to thrombosis primarily through which mechanism?",
+                options: {
+                    A: "Abnormal blood flow",
+                    B: "Endothelial injury",
+                    C: "Hypercoagulability",
+                    D: "Increased platelet count",
+                    E: "Venous stasis"
+                },
+                correctAnswer: "C",
+                rationale: "Oral contraceptives are a risk factor categorized under hypercoagulability in Virchow's triad.",
+                source: "DVT_&_PE_PDF.pdf, Slide 7: \"Hypercoagulability... Malignancy, oral contraceptives, thrombophilia\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO1: Identify risk factors for deep vein thrombosis and pulmonary embolism",
+                fullLO: "LO1: Identify risk factors for deep vein thrombosis and pulmonary embolism",
+                question: "A 65-year-old male undergoes a total hip replacement. Post-operatively he is bedbound. This immobility contributes to thrombus formation primarily by:",
+                options: {
+                    A: "Activating Factor X",
+                    B: "Causing endothelial damage",
+                    C: "Causing venous stasis",
+                    D: "Decreasing Protein C levels",
+                    E: "Increasing fibrinogen production"
+                },
+                correctAnswer: "C",
+                rationale: "Immobility (bed rest) leads to venous stasis, which is one arm of Virchow's triad.",
+                source: "DVT_&_PE_PDF.pdf, Slide 7: \"Venous stasis... Long trips or bed rest/immobility\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO2: Identify clinical manifestations of both DVT and PE",
+                fullLO: "LO2: Identify clinical manifestations of both DVT and PE",
+                question: "A patient presents to the emergency department with a suspected pulmonary embolism. Which of the following is the most common symptom associated with this diagnosis?",
+                options: {
+                    A: "Cough",
+                    B: "Dyspnea",
+                    C: "Hemoptysis",
+                    D: "Pleuritic chest pain",
+                    E: "Syncope"
+                },
+                correctAnswer: "B",
+                rationale: "Dyspnea is the most common symptom of PE. Pleuritic chest pain and cough are also seen but less frequently than dyspnea.",
+                source: "DVT_&_PE_PDF.pdf, Slide 16: \"Symptoms... Dyspnea (most common)\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO2: Identify clinical manifestations of both DVT and PE",
+                fullLO: "LO2: Identify clinical manifestations of both DVT and PE",
+                question: "A 72-year-old male presents with sudden onset of severe shortness of breath and subsequently collapses (syncope). This presentation is most suggestive of:",
+                options: {
+                    A: "A large pulmonary embolism",
+                    B: "A small peripheral DVT",
+                    C: "Chronic pulmonary hypertension",
+                    D: "Pneumonia",
+                    E: "Rib fracture"
+                },
+                correctAnswer: "A",
+                rationale: "Syncope and hemodynamic instability are associated with a large PE.",
+                source: "DVT_&_PE_PDF.pdf, Slide 16: \"Syncope in cases of a large PE... Hemodynamic instability (in cases of a large PE)\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO3: Identify physical exam features of DVT and PE",
+                fullLO: "LO3: Identify physical exam features of DVT and PE",
+                question: "On physical examination of a patient with a confirmed pulmonary embolism, which of the following is the most common sign?",
+                options: {
+                    A: "Cyanosis",
+                    B: "Hypotension",
+                    C: "Loud P2",
+                    D: "Tachycardia",
+                    E: "Tachypnea"
+                },
+                correctAnswer: "D",
+                rationale: "Tachycardia is the most common physical exam finding in PE.",
+                source: "DVT_&_PE_PDF.pdf, Slide 16: \"Physical exam... Tachycardia (most common)\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO3: Identify physical exam features of DVT and PE",
+                fullLO: "LO3: Identify physical exam features of DVT and PE",
+                question: "A patient presents with calf pain. Physical exam reveals unilateral edema, warmth, and erythema of the right lower extremity. These findings are most consistent with:",
+                options: {
+                    A: "Arterial insufficiency",
+                    B: "Cellulitis",
+                    C: "Deep Vein Thrombosis (DVT)",
+                    D: "Lymphedema",
+                    E: "Peripheral neuropathy"
+                },
+                correctAnswer: "C",
+                rationale: "Physical exam features of DVT include leg swelling, pain with palpation, and unilateral involvement. (Note: While Cellulitis is a differential, the context of the LOs focuses on DVT identification).",
+                source: "DVT_&_PE_PDF.pdf, Slide 17: \"Pain on lower limb deep venous palpation and unilateral edema... Unilateral limb pain\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO4: Recognize appropriate diagnostic strategies",
+                fullLO: "LO4: Recognize appropriate diagnostic strategies",
+                question: "A 30-year-old female presents with chest pain. She has a low pre-test probability for pulmonary embolism based on the Wells criteria. Which of the following is the most appropriate next step to rule out a PE?",
+                options: {
+                    A: "Arterial Blood Gas",
+                    B: "CT Angiogram",
+                    C: "D-dimer assay",
+                    D: "Echocardiogram",
+                    E: "V/Q scan"
+                },
+                correctAnswer: "C",
+                rationale: "A D-dimer is used to rule out PE/DVT if there is a low pre-test probability due to its high negative predictive value.",
+                source: "DVT_&_PE_PDF.pdf, Slide 9: \"Used to rule-out PE/DVT if there is a low pre-test probability\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO4: Recognize appropriate diagnostic strategies",
+                fullLO: "LO4: Recognize appropriate diagnostic strategies",
+                question: "A patient has a high clinical probability of pulmonary embolism. Which of the following is the gold standard diagnostic test for confirmation?",
+                options: {
+                    A: "Chest X-ray",
+                    B: "CT Angiogram (CTA)",
+                    C: "D-dimer",
+                    D: "ECG",
+                    E: "Venous Ultrasound"
+                },
+                correctAnswer: "B",
+                rationale: "For a likely PE (high probability), a spiral CTA is the diagnostic strategy.",
+                source: "DVT_&_PE_PDF.pdf, Slide 18: \"Likely -> spiral CTA\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO5: Identify appropriate treatments",
+                fullLO: "LO5: Identify appropriate treatments",
+                question: "A patient is diagnosed with an acute DVT. The physician decides to start an oral anticoagulant that inhibits Factor Xa. Which of the following medications fits this mechanism of action?",
+                options: {
+                    A: "Dabigatran",
+                    B: "Heparin",
+                    C: "Rivaroxaban",
+                    D: "Warfarin",
+                    E: "Abelasimab"
+                },
+                correctAnswer: "C",
+                rationale: "Rivaroxaban is a Factor Xa inhibitor.",
+                source: "DVT_&_PE_PDF.pdf, Slide 23: \"Factor Xa inhibitors (Fondaparinux, Rivaroxaban, Apixaban)\""
+            },
+            {
+                section: "DVT & Pulmonary Embolism",
+                maskedLO: "LO5: Identify appropriate treatments",
+                fullLO: "LO5: Identify appropriate treatments",
+                question: "A patient presents with a massive pulmonary embolism and is hemodynamically unstable. Which of the following is the most appropriate immediate treatment?",
+                options: {
+                    A: "Inferior Vena Cava (IVC) filter",
+                    B: "Low Molecular Weight Heparin (LMWH)",
+                    C: "Oral Warfarin",
+                    D: "Systemic Thrombolysis",
+                    E: "Compression stockings"
+                },
+                correctAnswer: "D",
+                rationale: "Systemic thrombolysis (e.g., tPA) is indicated for high-risk PE with hemodynamic instability to rapidly dissolve the clot.",
+                source: "DVT_&_PE_PDF.pdf, Slide 30: \"Systemic thrombolysis\""
+            },
+
+            // --- Section 3: Antihypertensives ---
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "A patient is prescribed Amlodipine. This medication lowers blood pressure primarily by:",
+                options: {
+                    A: "Blocking Angiotensin II receptors",
+                    B: "Blocking L-type calcium channels in vascular smooth muscle",
+                    C: "Depleting catecholamine storage vesicles",
+                    D: "Inhibiting HMG-CoA reductase",
+                    E: "Stimulating alpha-2 adrenergic receptors"
+                },
+                correctAnswer: "B",
+                rationale: "Calcium Channel Blockers (CCBs) like Amlodipine block calcium entry into vascular smooth muscle cells, leading to vasodilation and decreased peripheral vascular resistance.",
+                source: "Antihypertensives_PDF.pdf, Slide 10: \"Block Ca2+ in cardiac/smooth muscle... Dilate peripheral arterioles... Reduce peripheral vascular resistance\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Lisinopril is prescribed to a patient with hypertension. Which of the following best describes its mechanism of action?",
+                options: {
+                    A: "Inhibits the conversion of Angiotensin I to Angiotensin II",
+                    B: "Directly blocks the binding of Angiotensin II to AT1 receptors",
+                    C: "Inhibits the release of Renin from the juxtaglomerular cells",
+                    D: "Blocks Beta-1 receptors in the heart",
+                    E: "Activates Alpha-2 receptors in the CNS"
+                },
+                correctAnswer: "A",
+                rationale: "ACE inhibitors block the Angiotensin Converting Enzyme (ACE), preventing the conversion of inactive Angiotensin I to the active vasoconstrictor Angiotensin II.",
+                source: "Antihypertensives_PDF.pdf, Slide 23: \"Inhibit conversion of inactive angiotensin I to angiotensin II\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Losartan lowers blood pressure by:",
+                options: {
+                    A: "Blocking the AT1 receptor",
+                    B: "Blocking the AT2 receptor",
+                    C: "Inhibiting ACE",
+                    D: "Inhibiting Renin",
+                    E: "Stimulating nitric oxide release"
+                },
+                correctAnswer: "A",
+                rationale: "ARBs (Angiotensin Receptor Blockers) like Losartan selectively block the AT1 receptor, which is responsible for vasoconstriction, sodium retention, and remodeling.",
+                source: "Antihypertensives_PDF.pdf, Slide 30 & 64: \"ACE's/ARBs will Block AT1R in the Adrenal\" & \"ATI Prototype antagonist=Losartan\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Metoprolol reduces blood pressure primarily by blocking which receptor?",
+                options: {
+                    A: "Alpha-1",
+                    B: "Beta-1",
+                    C: "Beta-2",
+                    D: "Dopamine D1",
+                    E: "Muscarinic"
+                },
+                correctAnswer: "B",
+                rationale: "Metoprolol is a selective beta-1 blocker. Blocking beta-1 receptors decreases heart rate and contractility (cardiac output) and reduces renin secretion.",
+                source: "Antihypertensives_PDF.pdf, Slide 9: \"Metoprolol... Selective beta-1 blocker\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Prazosin lowers blood pressure by blocking alpha-1 receptors located on:",
+                options: {
+                    A: "Cardiac myocytes",
+                    B: "Juxtaglomerular cells",
+                    C: "Resistance vessels (arterioles)",
+                    D: "The adrenal medulla",
+                    E: "The vasomotor center"
+                },
+                correctAnswer: "C",
+                rationale: "Prazosin blocks alpha-1 receptors on resistance vessels (arterioles) and venous beds, leading to vasodilation and decreased peripheral vascular resistance.",
+                source: "Antihypertensives_PDF.pdf, Slide 33: \"Blocks a1-AR on resistance vessels from binding NE... Decreases vascular tone (vasodilates)\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Clonidine acts as an antihypertensive by stimulating alpha-2 receptors in the:",
+                options: {
+                    A: "Adrenal cortex",
+                    B: "Heart",
+                    C: "Kidney",
+                    D: "Vascular smooth muscle",
+                    E: "Vasomotor center of the brainstem"
+                },
+                correctAnswer: "E",
+                rationale: "Clonidine stimulates alpha-2 receptors in the vasomotor center of the brainstem (medulla), which inhibits sympathetic outflow to the periphery.",
+                source: "Antihypertensives_PDF.pdf, Slide 37: \"stimulate a2 receptors in vasomotor center in brainstem/medulla oblongatta... Inhibit sympathetic... outflow to periphery\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                fullLO: "LO1: Know the mechanism of action and effects of the antihypertensives",
+                question: "Hydralazine lowers blood pressure by direct vasodilation of arterioles. This is mediated by:",
+                options: {
+                    A: "Blocking calcium channels",
+                    B: "Hyperpolarizing the smooth muscle cell",
+                    C: "Increasing cAMP levels",
+                    D: "Inhibiting ACE",
+                    E: "Releasing Nitric Oxide"
+                },
+                correctAnswer: "B",
+                rationale: "Hydralazine acts by altering smooth muscle cell calcium flux, likely by hyperpolarizing the cell (often associated with K+ channel opening in general vasodilator mechanisms, though the slide specifically mentions hyperpolarizing).",
+                source: "Antihypertensives_PDF.pdf, Slide 43: \"Direct vasodilatory action on arterioles altering smooth muscle cell Ca2+ by hyperpolarizing cell\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO2: Identify where in the body and/or brain diuretics and other antihypertensives exert their effects",
+                fullLO: "LO2: Identify where in the body and/or brain diuretics and other antihypertensives exert their effects",
+                question: "Where is the primary site of action for Thiazide diuretics?",
+                options: {
+                    A: "Collecting duct",
+                    B: "Distal convoluted tubule",
+                    C: "Glomerulus",
+                    D: "Loop of Henle",
+                    E: "Proximal convoluted tubule"
+                },
+                correctAnswer: "B",
+                rationale: "Thiazide diuretics inhibit the Na+-Cl- symport in the distal convoluted tubule.",
+                source: "Antihypertensives_PDF.pdf, Slide 57: \"Thiazide diuretics... Inhibitors of Na+- Cl- symport in the distal convoluted tubule.\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO2: Identify where in the body and/or brain diuretics and other antihypertensives exert their effects",
+                fullLO: "LO2: Identify where in the body and/or brain diuretics and other antihypertensives exert their effects",
+                question: "Renin inhibitors, such as Aliskiren, act directly on renin in the circulation. Renin is originally secreted from which location?",
+                options: {
+                    A: "Adrenal cortex",
+                    B: "Adrenal medulla",
+                    C: "Juxtaglomerular (JG) cells of the kidney",
+                    D: "Liver",
+                    E: "Lung endothelium"
+                },
+                correctAnswer: "C",
+                rationale: "Renin is secreted by the JG cells in the kidney.",
+                source: "Shock_and_Rapid_BP_Control_PDF.pdf, Slide 33: \"JG cells... release ree’ - nin\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO3: Differentiate between the different actions of antihypertensives and their actions as receptor agonists/antagonists, channel inhibitors, and enzyme inhibitors",
+                fullLO: "LO3: Differentiate between the different actions of antihypertensives and their actions as receptor agonists/antagonists, channel inhibitors, and enzyme inhibitors",
+                question: "Which of the following antihypertensive agents functions as an enzyme inhibitor?",
+                options: {
+                    A: "Atenolol",
+                    B: "Clonidine",
+                    C: "Enalapril",
+                    D: "Losartan",
+                    E: "Nifedipine"
+                },
+                correctAnswer: "C",
+                rationale: "Enalapril is an ACE inhibitor. It inhibits the Angiotensin Converting Enzyme.",
+                source: "Antihypertensives_PDF.pdf, Slide 22 & 24: \"Angiotensin Converting Enzyme Inhibitors... ‘ACE Inhibitors’\" & \"Enalapril... ACE Inhibitor\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO3: Differentiate between the different actions of antihypertensives and their actions as receptor agonists/antagonists, channel inhibitors, and enzyme inhibitors",
+                fullLO: "LO3: Differentiate between the different actions of antihypertensives and their actions as receptor agonists/antagonists, channel inhibitors, and enzyme inhibitors",
+                question: "Which of the following agents lowers blood pressure by acting as a receptor agonist?",
+                options: {
+                    A: "Candesartan",
+                    B: "Carvedilol",
+                    C: "Clonidine",
+                    D: "Diltiazem",
+                    E: "Hydrochlorothiazide"
+                },
+                correctAnswer: "C",
+                rationale: "Clonidine is a central alpha-2 adrenergic receptor agonist. The others are antagonists (blockers) or channel blockers.",
+                source: "Antihypertensives_PDF.pdf, Slide 38: \"Clonidine... Direct acting a2 adrenergic receptor agonists.\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO4: Identify appropriate choice of antihypertensives in patients with underlying ‘conditions’",
+                fullLO: "LO4: Identify appropriate choice of antihypertensives in patients with underlying ‘conditions’",
+                question: "A hypertensive patient with Type 2 Diabetes and early signs of nephropathy (proteinuria) would benefit most from which class of antihypertensive drugs due to their ability to slow the progression of renal disease?",
+                options: {
+                    A: "Alpha-1 blockers",
+                    B: "ACE inhibitors",
+                    C: "Beta-blockers",
+                    D: "Loop diuretics",
+                    E: "Thiazide diuretics"
+                },
+                correctAnswer: "B",
+                rationale: "ACE inhibitors are very useful in diabetic patients as they slow the progression of renal disease.",
+                source: "Antihypertensives_PDF.pdf, Slide 23: \"Very useful in diabetic patients... Slows progression of renal disease\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO4: Identify appropriate choice of antihypertensives in patients with underlying ‘conditions’",
+                fullLO: "LO4: Identify appropriate choice of antihypertensives in patients with underlying ‘conditions’",
+                question: "A pregnant female presents with hypertension. Which of the following antihypertensive medications is considered safe and has been a traditional first choice for this condition?",
+                options: {
+                    A: "Captopril",
+                    B: "Enalapril",
+                    C: "Lisinopril",
+                    D: "Losartan",
+                    E: "Methyldopa"
+                },
+                correctAnswer: "E",
+                rationale: "Methyldopa was once a first choice for hypertension during pregnancy. ACE inhibitors and ARBs are contraindicated in pregnancy.",
+                source: "Antihypertensives_PDF.pdf, Slide 41: \"Methyldopa was once a first choice for hypertension during pregnancy\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO5: Be familiar with pharmacologic approaches that diminish reflex hypertension",
+                fullLO: "LO5: Be familiar with pharmacologic approaches that diminish reflex hypertension",
+                question: "A patient is treated with Hydralazine for severe hypertension. To prevent the reflex tachycardia associated with this direct vasodilator, which medication should be added to the regimen?",
+                options: {
+                    A: "Amlodipine",
+                    B: "Minoxidil",
+                    C: "Prazosin",
+                    D: "Propranolol",
+                    E: "Valsartan"
+                },
+                correctAnswer: "D",
+                rationale: "Vasodilators like Hydralazine cause reflex tachycardia (sympathetic activation). This response can be blocked by the addition of a beta-blocker like propranolol.",
+                source: "Antihypertensives_PDF.pdf, Slide 44: \"Reflex response can be blocked by addition of propranolol\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO5: Be familiar with pharmacologic approaches that diminish reflex hypertension",
+                fullLO: "LO5: Be familiar with pharmacologic approaches that diminish reflex hypertension",
+                question: "Direct vasodilators like Minoxidil often cause sodium and water retention (edema) as a compensatory mechanism. This side effect is best managed by the concurrent administration of:",
+                options: {
+                    A: "A Beta-blocker",
+                    B: "A Calcium Channel Blocker",
+                    C: "A Diuretic",
+                    D: "An Alpha-blocker",
+                    E: "Another vasodilator"
+                },
+                correctAnswer: "C",
+                rationale: "Edema/Sodium and water retention caused by vasodilators can be prevented by the addition of a diuretic.",
+                source: "Antihypertensives_PDF.pdf, Slide 44: \"Edema/Sodium and water retention – can be prevented by addition of a diuretic\""
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO6: Understand how to combat the hypokalemia that can occur with loop diuretics",
+                fullLO: "LO6: Understand how to combat the hypokalemia that can occur with loop diuretics",
+                question: "Loop diuretics are potent but often cause hypokalemia. What is the physiological basis for this potassium loss?",
+                options: {
+                    A: "Direct inhibition of potassium reabsorption in the Loop of Henle",
+                    B: "Increased sodium load delivered to the collecting duct triggers aldosterone-mediated K+ secretion",
+                    C: "Inhibition of the Na/K ATPase in the proximal tubule",
+                    D: "Stimulation of potassium secretion in the descending limb",
+                    E: "Systemic acidosis causing intracellular potassium shift"
+                },
+                correctAnswer: "B",
+                rationale: "Loop diuretics block sodium reabsorption in the loop, delivering a high sodium load to the collecting duct. This triggers aldosterone-mediated homeostatic mechanisms (ENaC activation) which drives the Na+/K+ exchange, excreting potassium.",
+                source: "Antihypertensives_PDF.pdf, Slide 30: \"Mechanism of hyperkalemia... act like a ‘pseudo-potassium sparing diuretic’ in the CD, since they block aldosterone production but don’t affect the loop\" (Note: This slide discusses ARBs causing hyperkalemia by the reverse mechanism, confirming the mechanism of K+ loss with diuretics described in the LO and implied in the loop/thiazide context.)"
+            },
+            {
+                section: "Antihypertensives",
+                maskedLO: "LO6: Understand how to combat the hypokalemia that can occur with loop diuretics",
+                fullLO: "LO6: Understand how to combat the hypokalemia that can occur with loop diuretics",
+                question: "To counteract the hypokalemia associated with loop or thiazide diuretics, a potassium-sparing diuretic like Amiloride can be added. Amiloride works by:",
+                options: {
+                    A: "Antagonizing the Aldosterone receptor",
+                    B: "Blocking the ENaC channel in the collecting duct",
+                    C: "Inhibiting the Na-K-2Cl cotransporter",
+                    D: "Inhibiting the Na-Cl symporter",
+                    E: "Stimulating Renin release"
+                },
+                correctAnswer: "B",
+                rationale: "Potassium-sparing diuretics like Amiloride (and Triamterene) block the Epithelial Sodium Channel (ENaC) in the collecting duct, preventing the Na+ reabsorption that drives K+ excretion. (Note: Spironolactone blocks the receptor, Amiloride blocks the channel).",
+                source: "Based on the specific text of the Learning Objective provided: \"Blocking the eNAC CD reabsorption mechanism counter the hypokalemia.\""
+            },
+
+            // --- Section 4: Lipid Lowering Drugs ---
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO1: Know the drugs classes that can used to lower lipids",
+                fullLO: "LO1: Know the drugs classes that can used to lower lipids",
+                question: "Which of the following classes of lipid-lowering drugs targets the rate-limiting enzyme in cholesterol biosynthesis?",
+                options: {
+                    A: "Bile Acid Sequestrants",
+                    B: "Fibrates",
+                    C: "PCSK9 Inhibitors",
+                    D: "Statins",
+                    E: "Sterol absorption inhibitors"
+                },
+                correctAnswer: "D",
+                rationale: "Statins are competitive inhibitors for HMG-CoA reductase, which is the rate-limiting enzyme in cholesterol biosynthesis.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 4: \"Statins: Primary action as a competitive inhibitor... for reductase (rate limiting enzyme in cholesterol biosynthesis)\""
+            },
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO1: Know the drugs classes that can used to lower lipids",
+                fullLO: "LO1: Know the drugs classes that can used to lower lipids",
+                question: "Ezetimibe reduces plasma cholesterol levels by targeting which specific protein?",
+                options: {
+                    A: "HMG-CoA Reductase",
+                    B: "LDL Receptor",
+                    C: "Niemann-Pick C1-Like 1 protein (NPC1L1)",
+                    D: "PCSK9",
+                    E: "PPAR-alpha"
+                },
+                correctAnswer: "C",
+                rationale: "Ezetimibe inhibits the NPC1L1 cholesterol transporter expressed at the apical surface of enterocytes.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 29: \"Ezetimibe inhibits NPC1L1 to inhibit enterocyte cholesterol Absorption\""
+            },
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO2: Differentiate among the drug classes by their primary and secondary mechanisms of action",
+                fullLO: "LO2: Differentiate among the drug classes by their primary and secondary mechanisms of action",
+                question: "Statins inhibit HMG-CoA reductase, leading to decreased intracellular cholesterol. This reduction triggers a secondary, compensatory mechanism that further lowers plasma LDL. What is this secondary mechanism?",
+                options: {
+                    A: "Decreased synthesis of ApoB",
+                    B: "Increased excretion of bile acids",
+                    C: "Increased synthesis of LDL receptors (LDL-r)",
+                    D: "Inhibition of VLDL secretion",
+                    E: "Activation of Lipoprotein Lipase"
+                },
+                correctAnswer: "C",
+                rationale: "Cholesterol lowering causes a cellular response to increase LDL-receptor expression (a transcriptional cholesterol sensing mechanism). This pulls more LDL out of the plasma.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 7 & 8: \"Cholesterol lowering causes a response in cells to increase LDL-receptor... Increase surface LDL-r, reducing plasma LDL\""
+            },
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO2: Differentiate among the drug classes by their primary and secondary mechanisms of action",
+                fullLO: "LO2: Differentiate among the drug classes by their primary and secondary mechanisms of action",
+                question: "Bile Acid Sequestrants (resins) bind bile acids in the gut, preventing their reabsorption. How does this primary action lead to reduced plasma cholesterol?",
+                options: {
+                    A: "It activates PPAR-alpha to break down triglycerides",
+                    B: "It directly degrades LDL particles in the intestine",
+                    C: "It forces the liver to use cholesterol to synthesize new bile acids, leading to upregulation of LDL receptors",
+                    D: "It inhibits the absorption of dietary cholesterol via NPC1L1",
+                    E: "It prevents the secretion of VLDL from the liver"
+                },
+                correctAnswer: "C",
+                rationale: "By sequestering bile acids (BA), the liver must use more cholesterol to make new BA. This depletion of hepatic cholesterol removes feedback inhibition, leading to increased LDL-receptor expression.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 14: \"More liver cholesterol must be used to make up for excreted BA... Action 5. [Up arrow] LDR-r\""
+            },
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO3: Differentiate among each drug class’ efficacy or inefficacy",
+                fullLO: "LO3: Differentiate among each drug class’ efficacy or inefficacy",
+                question: "A patient presents with severe hypertriglyceridemia (>500 mg/dL). Which class of lipid-lowering agents is most effective at lowering triglyceride levels?",
+                options: {
+                    A: "Bile Acid Sequestrants",
+                    B: "Cholesterol Absorption Inhibitors",
+                    C: "Fibrates",
+                    D: "PCSK9 Inhibitors",
+                    E: "Statins"
+                },
+                correctAnswer: "C",
+                rationale: "Fibrates decrease triglyceride levels by 35% and are indicated for hypertriglyceridemia. Bile acid sequestrants can actually increase triglycerides.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 20 & 21: \"Fibrates: Summary of the key lipid effects... Decrease triglyceride levels (35%)... Yes: Hypertriglyceridemia\""
+            },
+            {
+                section: "Lipid Lowering Drugs",
+                maskedLO: "LO3: Differentiate among each drug class’ efficacy or inefficacy",
+                fullLO: "LO3: Differentiate among each drug class’ efficacy or inefficacy",
+                question: "Elevated Lipoprotein(a) [Lp(a)] is an independent risk factor for cardiovascular disease. Which of the following agents has been shown to reduce Lp(a) levels?",
+                options: {
+                    A: "Bile Acid Sequestrants",
+                    B: "Ezetimibe",
+                    C: "Fibrates",
+                    D: "PCSK9 Inhibitors",
+                    E: "Resins"
+                },
+                correctAnswer: "D",
+                rationale: "PCSK9 inhibitors are noted to be useful for patients with high Lp(a), as they can reduce Lp(a) levels (though the exact mechanism is not fully clear). Niacin also lowers Lp(a), but PCSK9 inhibitors are the other key class mentioned for this.",
+                source: "Lipid_Lowering_Drugs_PDF.pdf, Page 30: \"Also useful for patients with high Lp(a)... Lp(a) may bind LDL-receptor (which pcsk9-ab would increase...\""
+            },
+
+            // --- Section 5: Antihypertensives: Autonomic (Specific Drugs) ---
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                fullLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                question: "Phenoxybenzamine is an alpha-adrenergic antagonist used primarily in the management of pheochromocytoma. What is a unique characteristic of its binding mechanism compared to other alpha blockers?",
+                options: {
+                    A: "It is a competitive antagonist.",
+                    B: "It binds covalently and causes irreversible blockade.",
+                    C: "It is selective for alpha-2 receptors.",
+                    D: "It has intrinsic sympathomimetic activity.",
+                    E: "It is metabolized by COMT within minutes."
+                },
+                correctAnswer: "B",
+                rationale: "Phenoxybenzamine causes covalent, irreversible blockade, which may require days to recover.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 4: \"Phenoxybenzamine... Covalent, irreversible blockade\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                fullLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                question: "Prazosin is a selective alpha-1 antagonist used for hypertension. A significant side effect known as the \"First-Dose Phenomenon\" requires that the patient be advised to:",
+                options: {
+                    A: "Take the first dose with a high-fat meal.",
+                    B: "Take the first dose at bedtime to avoid syncope.",
+                    C: "Take the medication only in the morning.",
+                    D: "Monitor for bradycardia.",
+                    E: "Expect transient urinary retention."
+                },
+                correctAnswer: "B",
+                rationale: "Prazosin can cause orthostatic hypotension, particularly with the first dose (\"First-Dose Phenomenon\"). It is advised to give it at bedtime.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 6: \"Prazosin... 'First-Dose Phenomenon' - give it at bedtime\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                fullLO: "LO1: Identify the effects and clinical use of alpha-adrenergic antagonists",
+                question: "Tamsulosin is an alpha-1 antagonist. Unlike Prazosin, it is primarily used for:",
+                options: {
+                    A: "Acute hypertensive crisis",
+                    B: "Benign Prostatic Hyperplasia (BPH)",
+                    C: "Chronic heart failure",
+                    D: "Pheochromocytoma",
+                    E: "Raynaud's phenomenon"
+                },
+                correctAnswer: "B",
+                rationale: "Tamsulosin (Flomax) is used to improve urinary flow in BPH. It targets a1A and a1D receptors.",
+                source: "Antihypertensives_PDF.pdf, Slide 35: \"Tamsulosin (a1A, a1D)-May be a choice for older men with symptoms of prostatism\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                fullLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                question: "Propranolol is a non-selective beta blocker. Because it blocks beta-2 receptors, it is generally contraindicated or used with caution in patients with:",
+                options: {
+                    A: "Angina",
+                    B: "Asthma or COPD",
+                    C: "Glaucoma",
+                    D: "Hyperthyroidism",
+                    E: "Migraine"
+                },
+                correctAnswer: "B",
+                rationale: "Blocking beta-2 receptors can lead to bronchoconstriction, limiting the use of non-selective beta blockers like Propranolol in patients with asthma or COPD.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 8: \"Can lead to bronchoconstriction - limited use in patients with asthma or COPD\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                fullLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                question: "Esmolol is a beta-1 selective antagonist. It is unique among beta-blockers because of its:",
+                options: {
+                    A: "Very long half-life",
+                    B: "Ability to cross the blood-brain barrier",
+                    C: "Very short duration of action due to rapid metabolism",
+                    D: "Intrinsic sympathomimetic activity",
+                    E: "Covalent binding to the receptor"
+                },
+                correctAnswer: "C",
+                rationale: "Esmolol is a 'soft drug' with rapid metabolism, allowing for rapid control of BP and HR.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 10: \"Esmolol... ‘soft drug’ – rapid metabolism... Allows for ‘rapid control’ of BP and HR\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                fullLO: "LO2: Recognize the effects and clinical use of beta-adrenergic antagonists",
+                question: "Carvedilol is effective in the management of heart failure. Its mechanism of action differs from Metoprolol because Carvedilol:",
+                options: {
+                    A: "Blocks alpha-1 receptors in addition to beta receptors",
+                    B: "Selectively blocks beta-2 receptors",
+                    C: "Is a partial agonist",
+                    D: "Increases renal blood flow via dopamine receptors",
+                    E: "Stimulates nitric oxide release"
+                },
+                correctAnswer: "A",
+                rationale: "Carvedilol is a mixed selective alpha/beta blocker (b1 and b2 antagonist + a1 antagonist).",
+                source: "Antihypertensives_PDF.pdf, Slide 19: \"Carvedilol... 1 and 2AR antagonist+1AR antagonist\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO3: Know the mechanisms of action of agents that indirectly inhibit adrenergic-mediated effects",
+                fullLO: "LO3: Know the mechanisms of action of agents that indirectly inhibit adrenergic-mediated effects",
+                question: "Reserpine is a sympatholytic agent that acts on the adrenergic nerve terminal. Its primary mechanism of action is:",
+                options: {
+                    A: "Blocking the reuptake of norepinephrine from the synapse (Uptake 1)",
+                    B: "Inhibiting the release of norepinephrine from vesicles",
+                    C: "Inhibiting tyrosine hydroxylase",
+                    D: "Preventing the storage of norepinephrine in vesicles (Catecholamine depletion)",
+                    E: "Stimulating alpha-2 autoreceptors"
+                },
+                correctAnswer: "D",
+                rationale: "Reserpine inhibits amine uptake into vesicles (VMAT inhibition), leading to catecholamine depletion by blocking NE storage.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 13: \"Reserpine... Catecholamine depletion - inhibits amine uptake into vesicles\""
+            },
+            {
+                section: "Antihypertensives: Autonomic (Specific Drugs)",
+                maskedLO: "LO3: Know the mechanisms of action of agents that indirectly inhibit adrenergic-mediated effects",
+                fullLO: "LO3: Know the mechanisms of action of agents that indirectly inhibit adrenergic-mediated effects",
+                question: "Methyldopa is often used for hypertension in pregnancy. It functions as a \"false transmitter\" and is converted to alpha-methylnorepinephrine. This metabolite lowers blood pressure by:",
+                options: {
+                    A: "Blocking alpha-1 receptors on blood vessels",
+                    B: "Blocking beta-1 receptors on the heart",
+                    C: "Directly relaxing vascular smooth muscle",
+                    D: "Stimulating central alpha-2 receptors",
+                    E: "Inhibiting DOPA decarboxylase"
+                },
+                correctAnswer: "D",
+                rationale: "Methyldopa is converted to alpha-methyl-NE, which acts as an agonist at alpha-2 receptors (similar to clonidine), causing decreased sympathetic activity.",
+                source: "ANS_Overview_and_Adrenergics_PDF.pdf, Page 15: \"alpha-methyl-NE... CNS effects: decreased sympathetic activity - alpha-2 adrenoceptors (similar to clonidine?)\""
+            }
+        ];
+
+        // --- Core Logic ---
+        const quizRoot = document.getElementById('quiz-root');
+        const themeSelect = document.getElementById('theme-select');
+        const pinBtn = document.getElementById('pin-btn');
+        const mainHeader = document.getElementById('main-header');
+
+        function initQuiz() {
+            // Render Questions
+            let currentSection = "";
+            
+            quizData.forEach((item, index) => {
+                // Insert Section Header if needed
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionHeader = document.createElement('h2');
+                    sectionHeader.className = 'section-header';
+                    sectionHeader.textContent = currentSection;
+                    quizRoot.appendChild(sectionHeader);
+                }
+
+                // Create Card
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                // Learning Objective (Masked)
+                const loBox = document.createElement('div');
+                loBox.className = 'lo-box';
+                loBox.id = `lo-${index}`;
+                loBox.textContent = item.maskedLO;
+                card.appendChild(loBox);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.textContent = `${index + 1}. ${item.question}`;
+                card.appendChild(qText);
+
+                // Options Container
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                for (const [key, value] of Object.entries(item.options)) {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = key;
+
+                    const span = document.createElement('span');
+                    span.textContent = `${key}. ${value}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsGrid.appendChild(label);
+                }
+                card.appendChild(optionsGrid);
+
+                // Check Button
+                const btn = document.createElement('button');
+                btn.className = 'btn-check';
+                btn.textContent = 'Check Answer';
+                btn.onclick = () => checkAnswer(index);
+                card.appendChild(btn);
+
+                // Feedback Container
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                quizRoot.appendChild(card);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('quizTheme') || 'dark';
+            changeTheme(savedTheme);
+            themeSelect.value = savedTheme;
+
+            // Load saved pin state
+            const savedPinState = localStorage.getItem('headerPinned');
+            // Default to true (pinned) if not set or if set to true
+            if (savedPinState === 'false') {
+                toggleHeader(false); 
+            } else {
+                toggleHeader(true);
+            }
+        }
+
+        function checkAnswer(index) {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const loEl = document.getElementById(`lo-${index}`);
+            const data = quizData[index];
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Reveal LO
+            loEl.textContent = data.fullLO;
+
+            // Generate Feedback HTML
+            const isCorrect = selected.value === data.correctAnswer;
+            
+            let html = `<span class="feedback-header">${isCorrect ? "Correct!" : "Incorrect"}</span>`;
+            if (!isCorrect) {
+                html += `<div>The correct answer is <strong>${data.correctAnswer}</strong>.</div>`;
+            }
+            
+            html += `<div class="rationale"><strong>Rationale:</strong> ${data.rationale}</div>`;
+            html += `<div class="source"><strong>Source:</strong> ${data.source}</div>`;
+
+            feedbackEl.innerHTML = html;
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackEl.style.display = 'block';
+        }
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('quizTheme', themeName);
+        }
+
+        function toggleHeader(forceState) {
+            // Determine current state based on class presence
+            const isCurrentlyPinned = !mainHeader.classList.contains('unpinned');
+            
+            // If forceState is provided (boolean), use it. Otherwise toggle current state.
+            const newState = (typeof forceState === 'boolean') ? forceState : !isCurrentlyPinned;
+
+            if (newState) {
+                // Pin
+                mainHeader.classList.remove('unpinned');
+                pinBtn.classList.add('pin-active');
+                localStorage.setItem('headerPinned', 'true');
+            } else {
+                // Unpin
+                mainHeader.classList.add('unpinned');
+                pinBtn.classList.remove('pin-active');
+                localStorage.setItem('headerPinned', 'false');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initQuiz);
+
+    </script>
+</body>
+</html>
